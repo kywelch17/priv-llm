@@ -15,9 +15,9 @@ def chat(prompt: str) -> str:
     return resp.message.content
 
 def embed(texts: list[str]) -> list[list[float]]:
-    resp = client.embeddings(
-        model=settings.chat_model,
+    resp = client.embed(
+        model=settings.embed_model,
         input=texts
     )
 
-    return resp.embedding
+    return resp.embeddings

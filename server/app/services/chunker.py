@@ -1,4 +1,4 @@
-def chunk_text(text: str, size: int = 100, overlap: int = 10) -> list[str]:
+def chunk_text(text: str, size: int = 800, overlap: int = 50) -> list[str]:
     chunks, start = [], 0
     while start < len(text):
         end = min(start + size, len(text))

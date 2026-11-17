@@ -5,6 +5,7 @@ from pathlib import Path
 from app.db import get_cn
 from app.config import settings
 from app.services import chunker
+from app.clients import ollama
 # from app.clients.ollama import embed
 
 router = APIRouter(prefix="/docs", tags=["documents"])
@@ -37,11 +38,12 @@ async def upload(file: UploadFile):
             ).fetchone()[0]
             # return {"id": str(doc_id), "characters": text}
             pieces = chunker.chunk_text(text)
+            vector = ollama.embed(pieces)
             with cn.cursor() as cur:
                 cur.executemany(
-                    "INSERT INTO chunks (document_id, chunk_index, content)" \
-                    "VALUES (%s, %s, %s);",
-                    [(doc_id, i, piece) for i, piece in enumerate(pieces)] 
+                    "INSERT INTO chunks (document_id, chunk_index, content, embedding)" \
+                    "VALUES (%s, %s, %s, %s);",
+                    [(doc_id, i, c, v) for i, (c, v) in enumerate(zip(pieces, vector))] 
                 )
             cn.execute("UPDATE documents SET status = 'ready' WHERE id = %s;", (doc_id,))
             return {
