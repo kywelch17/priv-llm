@@ -8,7 +8,7 @@ A private, self-hosted RAG (retrieval-augmented generation) app. Upload your doc
 
 ```mermaid
 flowchart LR
-    subgraph Mac["Mac Mini"]
+    subgraph Machine["Machine"]
         API["FastAPI server<br/>127.0.0.1:8000"]
         PG[("Postgres + pgvector<br/>privllm")]
         FS[["uploads/<br/>original files"]]
