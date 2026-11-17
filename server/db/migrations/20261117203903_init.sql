@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS documents (
     file_type text NOT NULL,
     status text NOT NULL DEFAULT 'processing',
     error text,
+    storage_path text,
+    size_bytes bigint,
     created_at timestamptz NOT NULL DEFAULT now()
 );
 
@@ -13,7 +15,7 @@ CREATE TABLE IF NOT EXISTS chunks (
     document_id uuid NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
     chunk_index int NOT NULL,
     content text NOT NULL,
-    embedding vector(768) NOT NULL,
+    embedding vector(768),
     page int,
     start_sec real,
     end_sec real

@@ -42,7 +42,7 @@ CREATE TABLE public.chunks (
     document_id uuid NOT NULL,
     chunk_index integer NOT NULL,
     content text NOT NULL,
-    embedding public.vector(768) NOT NULL,
+    embedding public.vector(768),
     page integer,
     start_sec real,
     end_sec real
@@ -78,6 +78,8 @@ CREATE TABLE public.documents (
     file_type text NOT NULL,
     status text DEFAULT 'processing'::text NOT NULL,
     error text,
+    storage_path text,
+    size_bytes bigint,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
 

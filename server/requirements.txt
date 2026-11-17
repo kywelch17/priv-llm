@@ -70,6 +70,7 @@ propcache==0.5.4
 protobuf==7.36.2
 psycopg==3.3.9
 psycopg-binary==3.3.9
+psycopg-pool==3.3.3
 pybase64==1.5.2
 pydantic==2.14.3
 pydantic-extra-types==2.11.1

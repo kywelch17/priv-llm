@@ -1,11 +1,13 @@
 import httpx
 import psycopg as pc
-from fastapi import FastAPI
-from config import settings
 
-app = FastAPI()
+from fastapi import APIRouter
 
-@app.get("/health")
+from app.config import settings
+
+router = APIRouter(prefix="/health", tags=["health"])
+
+@router.get("")
 def health():
     result = {}
 
